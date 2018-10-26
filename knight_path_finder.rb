@@ -26,9 +26,9 @@ class KnightPathFinder
   end
 
   def new_move_positions(pos)
-    # call valid_moves on pos to get all legal moves
-    # reduce it to only moves we haven't visited
-    # add new moves to @visited_positions
+    moves = self.class.valid_moves(pos)
+    moves.reject! { |move| @visited_positions.include?(move) }
+    @visited_positions += moves
   end
 
   def build_move_tree
