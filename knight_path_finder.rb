@@ -29,8 +29,30 @@ class KnightPathFinder
     moves = self.class.valid_moves(pos)
     moves.reject! { |move| @visited_positions.include?(move) }
     @visited_positions += moves
+    moves
   end
 
   def build_move_tree
+    q = MyQueue.new
+    q.enqueue(@root_node)
+    until q.empty?
+      current_node = q.dequeue
+      new_moves = new_move_positions(current_node.value)
+      new_moves.each do |move|
+        node = PolyTreeNode.new(move)
+        node.parent = current_node
+        q.enqueue(node)
+      end
+    end
+
+    @root_node
+  end
+
+  def find_path(end_pos)
+    @root_node.bfs(end_pos)
+  end
+
+  def trace_path_back
+    
   end
 end
