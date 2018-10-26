@@ -49,10 +49,18 @@ class KnightPathFinder
   end
 
   def find_path(end_pos)
-    @root_node.bfs(end_pos)
+    end_node = @root_node.bfs(end_pos)
+    trace_path_back(end_node) if end_node
   end
 
-  def trace_path_back
-    
+  def trace_path_back(end_node)
+    path = [end_node.value]
+    current_node = end_node
+    until current_node == @root_node
+      current_node = current_node.parent
+      path.unshift(current_node.value)
+    end
+
+    path
   end
 end
